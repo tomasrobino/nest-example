@@ -4,25 +4,25 @@ import { Injectable } from '@nestjs/common';
 export class UsersService {
     private users: {id: number, name: string, email: string, role: "EMPLOYEE" | "ADMIN" | "INTERN"}[] = [
         {
-            id: 1,
+            id: 0,
             name: "a b",
             email: "a@b.com",
             role: "EMPLOYEE"
         },
         {
-            id: 2,
+            id: 1,
             name: "c d",
             email: "c@d.com",
             role: "ADMIN"
         },
         {
-            id: 3,
+            id: 2,
             name: "e f",
             email: "e@f.com",
             role: "INTERN"
         },
         {
-            id: 4,
+            id: 3,
             name: "g h",
             email: "g@h.com",
             role: "EMPLOYEE"
@@ -41,9 +41,13 @@ export class UsersService {
     }
 
     create(user: { name: string, email: string, role: "EMPLOYEE" | "ADMIN" | "INTERN"}): User {
-        const id: number = this.users.slice(-1)[0].id+1;
+        const lastUser: User = this.users.slice(-1)[0];
+        let id;
+        if (lastUser.id) {
+            id = lastUser.id+1;
+        } else id = 0;
         this.users.push({id: id, ...user});
-        return this.users[id];
+        return this.users.slice(-1)[0];
     }
 
     update(id: number, updatedUser: {name: string, email: string, role: "EMPLOYEE" | "ADMIN" | "INTERN"}): User | undefined {
