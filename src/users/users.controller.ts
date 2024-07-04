@@ -12,7 +12,7 @@ export class UsersController {
 
     //Get specific user
     @Get(':id') //GET /users/:id
-    getSingle(@Param(":id") id: string): User | undefined {
+    getSingle(@Param("id") id: string): User | undefined {
         return this.usersService.getSingle(+id);
     }
 
