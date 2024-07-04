@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import {UpdateUserDto} from "./dto/update-user.dto";
 
 @Injectable()
 export class UsersService {
@@ -50,7 +51,7 @@ export class UsersService {
         return this.users.slice(-1)[0];
     }
 
-    update(id: number, updatedUser: {name: string, email: string, role: "EMPLOYEE" | "ADMIN" | "INTERN"}): User | undefined {
+    update(id: number, updatedUser: UpdateUserDto): User | undefined {
         const gotId: number | undefined = this.users.findIndex(element => element.id === id);
         if (gotId !== undefined) {
             this.users[gotId] = {...this.users[gotId], ...updatedUser};
