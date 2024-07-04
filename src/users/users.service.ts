@@ -43,7 +43,7 @@ export class UsersService {
     create(user: { name: string, email: string, role: "EMPLOYEE" | "ADMIN" | "INTERN"}): User {
         const lastUser: User = this.users.slice(-1)[0];
         let id;
-        if (lastUser.id) {
+        if (lastUser.id !== undefined) {
             id = lastUser.id+1;
         } else id = 0;
         this.users.push({id: id, ...user});
@@ -52,7 +52,7 @@ export class UsersService {
 
     update(id: number, updatedUser: {name: string, email: string, role: "EMPLOYEE" | "ADMIN" | "INTERN"}): User | undefined {
         const gotId: number | undefined = this.users.findIndex(element => element.id === id);
-        if (gotId) {
+        if (gotId !== undefined) {
             this.users[gotId] = {...this.users[gotId], ...updatedUser};
             return this.users[gotId];
         }
@@ -60,7 +60,7 @@ export class UsersService {
 
     delete(id: number): User | undefined {
         const gotId: number | undefined = this.users.findIndex(element => element.id === id);
-        if (gotId) {
+        if (gotId !== undefined) {
             const user = this.users[gotId];
             this.users.splice(gotId, 1);
             return user;
