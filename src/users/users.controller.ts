@@ -14,7 +14,7 @@ export class UsersController {
 
     //Get specific user
     @Get(':id') //GET /users/:id
-    getSingle(@Param("id", ParseIntPipe) id: number): User | undefined {
+    getSingle(@Param("id", ParseIntPipe) id: number): User {
         return this.usersService.getSingle(id);
     }
 
