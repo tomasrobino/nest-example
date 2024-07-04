@@ -29,34 +29,36 @@ export class UsersService {
         },
     ]
 
-    getAll(role?: "INTERN" | "EMPLOYEE" | "ADMIN") {
+    getAll(role?: "INTERN" | "EMPLOYEE" | "ADMIN"): User[] {
         if (role) {
             this.users.filter(user => user.role === role );
         }
         return this.users
     }
 
-    getSingle(id: number) {
+    getSingle(id: number): User | undefined {
         return this.users.find(user => user.id === id);
     }
 
-    create(user: { name: string, email: string, role: "EMPLOYEE" | "ADMIN" | "INTERN"}) {
-        this.users.push({id: this.users.slice(-1)[0].id+1, ...user});
+    create(user: { name: string, email: string, role: "EMPLOYEE" | "ADMIN" | "INTERN"}): User {
+        const id: number = this.users.slice(-1)[0].id+1;
+        this.users.push({id: id, ...user});
+        return this.users[id];
     }
 
-    update(id: number, updatedUser: {name: string, email: string, role: "EMPLOYEE" | "ADMIN" | "INTERN"}) {
+    update(id: number, updatedUser: {name: string, email: string, role: "EMPLOYEE" | "ADMIN" | "INTERN"}): User | undefined {
         const gotId: number | undefined = this.users.findIndex(element => element.id === id);
         if (gotId) {
             this.users[gotId] = {...this.users[gotId], ...updatedUser};
-            return 0;
-        } else return 1;
+            return this.users[gotId];
+        }
     }
 
-    delete(id: number) {
+    delete(id: number): User | undefined {
         const gotId: number | undefined = this.users.findIndex(element => element.id === id);
         if (gotId) {
             this.users.splice(gotId, 1);
-            return 0;
-        } else return 1;
+            return this.users[gotId];
+        }
     }
 }
