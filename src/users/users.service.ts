@@ -61,8 +61,9 @@ export class UsersService {
     delete(id: number): User | undefined {
         const gotId: number | undefined = this.users.findIndex(element => element.id === id);
         if (gotId) {
+            const user = this.users[gotId];
             this.users.splice(gotId, 1);
-            return this.users[gotId];
+            return user;
         }
     }
 }
